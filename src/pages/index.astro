@@ -1,6 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const pageTitle = "Home Page";
+import BlogPost from '../components/BlogPost.astro';
+const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
+const sortedPosts = allPosts.sort((a: any, b: any) =>
+	new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime()
+);
 ---
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout>
+	<ul class="post-list">
+		{sortedPosts.map((post: any) => <BlogPost title={post.frontmatter.title} url={post.url} />)}
+	</ul>
 </BaseLayout>
