@@ -1,6 +1,7 @@
 # Kyle Schmidt's Personal Blog
 
 A personal blog built with [Astro](https://astro.build).
+Powers [www.kyle-a-schmidt.com](https://www.kyle-a-schmidt.com).
 
 ## Project Structure
 
