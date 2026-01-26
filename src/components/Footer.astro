@@ -1,12 +1,17 @@
 ---
+const today = new Date();
 ---
 <style>
-    footer {
-      display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-  </style>
+  footer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    border-top: 1px solid #ccc;
+  }
+</style>
 
 <footer>
+  <p>&copy; {today.getFullYear()} Kyle's Blog. Built with Astro.</p>
 </footer>
