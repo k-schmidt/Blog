@@ -6,16 +6,30 @@ const pageTitle = "About Me";
 
 const identity = {
   firstName: "Kyle",
-  country: "USA",
-  occupation: "Data Engineer",
-  hobbies: ["exercise", "traveling", "cooking", "photography"],
+  lastName: "Schmidt",
+  location: "Palo Alto, CA",
+  title: "Staff Data Engineer",
+  company: "Meta",
+  education: "Columbia University",
+  yearsExperience: "6+",
 };
 
-const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
+const skills = [
+  "Data Engineering",
+  "Python",
+  "Clojure",
+  "Distributed Systems",
+  "A/B Testing",
+  "Functional Programming",
+  "Emacs",
+];
 
-const happy = true;
-const finished = false;
-const goal = 3;
+const interests = [
+  "Data Applications",
+  "Free Software",
+  "Process Optimization",
+  "Metrics Analysis",
+];
 
 const skillColor = "crimson";
 const fontWeight = "bold";
@@ -23,39 +37,56 @@ const textCase = "uppercase";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-    <style define:vars={{skillColor, fontWeight, textCase}}>
-      h1 {
-        color: purple;
-        font-size: 4rem;
-      }
-      .skill {
-        color: var(--skillColor);
-        font-weight: var(--fontWeight);
-        text-transform: var(--textCase);
+  <style define:vars={{skillColor, fontWeight, textCase}}>
+    h1 {
+      color: purple;
+      font-size: 4rem;
     }
-    </style>
-  <h2>... and my new Astro site!</h2>
-
-  <p>I am working through Astro's introductory tutorial. This is the second page on my website, and it's the first one I built myself!</p>
-
-  <p>This site will update as I complete more of the tutorial, so keep checking back and see how my journey is going!</p>
-
-    <p>Here are a few facts about me:</p>
-    <ul>
-    <li>My name is {identity.firstName}.</li>
-    <li>I live in the {identity.country} and I work as a {identity.occupation}.</li>
-    {identity.hobbies.length >= 2 &&
-        <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
+    .skill {
+      color: var(--skillColor);
+      font-weight: var(--fontWeight);
+      text-transform: var(--textCase);
     }
-    </ul>
-    <p>My skills are:</p>
-    <ul>
-      {skills.map((skill) => <li class="skill">{skill}</li>)}
-    </ul>
+    .intro {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+    .section-title {
+      margin-top: 2rem;
+      color: #333;
+    }
+  </style>
 
-{happy && <p>I am happy to be learning Astro!</p>}
+  <p class="intro">
+    Hi, I'm {identity.firstName} {identity.lastName}. I'm a {identity.title} at {identity.company} based in {identity.location},
+    with {identity.yearsExperience} years of experience in software development and technology integration.
+  </p>
 
-{finished && <p>I finished this tutorial!</p>}
+  <p>
+    I'm passionate about building scalable data systems and have a natural aptitude for process optimization,
+    application design, and metrics analysis. I hold a degree from {identity.education}.
+  </p>
 
-{goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
+  <h3 class="section-title">What I Do</h3>
+  <p>
+    At Meta, I lead data-driven initiatives and collaborate with teams to architect and deploy machine learning models
+    and data pipelines. I also serve as a Tech Advisor for the Insight Data Engineering Fellowship, where I mentor
+    fellows in building cutting-edge data pipelines and help them make successful transitions to data engineering careers.
+  </p>
+
+  <h3 class="section-title">Technical Skills</h3>
+  <ul>
+    {skills.map((skill) => <li class="skill">{skill}</li>)}
+  </ul>
+
+  <h3 class="section-title">Interests</h3>
+  <ul>
+    {interests.map((interest) => <li>{interest}</li>)}
+  </ul>
+
+  <h3 class="section-title">Let's Connect</h3>
+  <p>
+    Feel free to reach out on <a href="https://www.linkedin.com/in/kylealanschmidt/" target="_blank" rel="noopener">LinkedIn</a>
+    or check out my work on <a href="https://github.com/k-schmidt" target="_blank" rel="noopener">GitHub</a>.
+  </p>
 </BaseLayout>
