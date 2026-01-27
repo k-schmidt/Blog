@@ -1,8 +1,42 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import "../styles/global.css";
+import StravaChart from '../components/StravaChart.jsx';
 
 const pageTitle = "About Me";
+
+// Fetch Strava data at build time
+const { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_REFRESH_TOKEN } = import.meta.env;
+
+let stravaData = [];
+if (STRAVA_CLIENT_ID && STRAVA_CLIENT_SECRET && STRAVA_REFRESH_TOKEN) {
+  try {
+    const tokenRes = await fetch('https://www.strava.com/oauth/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        client_id: STRAVA_CLIENT_ID,
+        client_secret: STRAVA_CLIENT_SECRET,
+        refresh_token: STRAVA_REFRESH_TOKEN,
+        grant_type: 'refresh_token',
+      }),
+    });
+    const tokenData = await tokenRes.json();
+
+    const activitiesRes = await fetch('https://www.strava.com/api/v3/athlete/activities?per_page=30', {
+      headers: { Authorization: `Bearer ${tokenData.access_token}` },
+    });
+    const activities = await activitiesRes.json();
+
+    stravaData = activities.map((run: any) => ({
+      date: run.start_date,
+      distance: (run.distance / 1609.34).toFixed(2),
+      type: run.type,
+    }));
+  } catch (e) {
+    console.error('Failed to fetch Strava data:', e);
+  }
+}
 
 const identity = {
   firstName: "Kyle",
@@ -58,4 +92,11 @@ const textCase = "uppercase";
 {finished && <p>I finished this tutorial!</p>}
 
 {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
+
+{stravaData.length > 0 && (
+  <section>
+    <h2>Recent Training</h2>
+    <StravaChart client:load data={stravaData} />
+  </section>
+)}
 </BaseLayout>
