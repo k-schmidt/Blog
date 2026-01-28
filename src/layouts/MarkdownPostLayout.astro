@@ -1,9 +1,39 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 const { frontmatter } = Astro.props;
+const pubDateStr = frontmatter.pubDate.toString().slice(0, 10);
 ---
-<BaseLayout pageTitle={frontmatter.title}>
-    <p>{frontmatter.pubDate.toString().slice(0,10)}</p>
+<BaseLayout
+  pageTitle={frontmatter.title}
+  description={frontmatter.description}
+  image={frontmatter.image}
+  articleDate={pubDateStr}
+  articleAuthor={frontmatter.author}
+  tags={frontmatter.tags}
+>
+    <p><em>By {frontmatter.author}</em></p>
+    <time datetime={pubDateStr}>{pubDateStr}</time>
+    {frontmatter.tags && (
+      <div class="tags">
+        {frontmatter.tags.map((tag: string) => (
+          <a class="tag" href={`/tags/${tag}`}>{tag}</a>
+        ))}
+      </div>
+    )}
 
     <slot />
 </BaseLayout>
+<style>
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    margin: 0.5em 0 1.5em;
+  }
+  .tag {
+    font-size: 0.85em;
+    padding: 0.25em 0.75em;
+    border: 1px solid #555;
+    border-radius: 1em;
+  }
+</style>
