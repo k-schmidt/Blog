@@ -6,7 +6,7 @@ const sortedPosts = allPosts.sort((a: any, b: any) =>
 	new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime()
 );
 ---
-<BaseLayout>
+<BaseLayout pageTitle="" description="Kyle Schmidt's blog covering data engineering, AI, machine learning, and software development. Tutorials, insights, and learning in public.">
 	<ul class="post-list">
 		{sortedPosts.map((post: any) => <BlogPost title={post.frontmatter.title} url={post.url} />)}
 	</ul>
