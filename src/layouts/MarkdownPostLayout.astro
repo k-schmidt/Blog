@@ -11,10 +11,9 @@ const pubDateStr = frontmatter.pubDate.toString().slice(0, 10);
   articleAuthor={frontmatter.author}
   tags={frontmatter.tags}
 >
-    <p><em>By {frontmatter.author}</em></p>
     <time datetime={pubDateStr}>{pubDateStr}</time>
     {frontmatter.tags && (
-      <div class="tags">
+      <div class="tags visually-hidden">
         {frontmatter.tags.map((tag: string) => (
           <a class="tag" href={`/tags/${tag}`}>{tag}</a>
         ))}
@@ -24,16 +23,15 @@ const pubDateStr = frontmatter.pubDate.toString().slice(0, 10);
     <slot />
 </BaseLayout>
 <style>
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5em;
-    margin: 0.5em 0 1.5em;
-  }
-  .tag {
-    font-size: 0.85em;
-    padding: 0.25em 0.75em;
-    border: 1px solid #555;
-    border-radius: 1em;
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 </style>
